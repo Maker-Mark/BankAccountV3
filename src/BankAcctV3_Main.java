@@ -15,15 +15,13 @@ public class BankAcctV3_Main {
 
 	public static void main(String[] args) throws IOException {
 		// constant definitions
-		final int MAX_NUM = 50;
-		BankAccount[] bankAcc = new BankAccount[MAX_NUM];
-		int numAccts; // number of accounts
+		
 		char choice; // menu item selected
 		boolean not_done = true; // loop control flag
 
 		// Open input test cases file
 		// File testFile = new File("mytestcases.txt");
-		File testFile = new File("mytestcases.txt");
+		//File testFile = new File("mytestcases.txt");
 
 		// Create Scanner object
 		//Scanner kybd = new Scanner(testFile);
@@ -616,15 +614,15 @@ public class BankAcctV3_Main {
 	public static int newAcct(BankAccount[] bankAcc, int numAccts, 
 			PrintWriter outFile, Scanner kybd) 
 	{
-		int accountNew = 0, index;
-
+		int accountNew = 0, accountNum,  index;
+		double accountBal;
 		String accLength;
 		// Sets up new account as string to ensure validity
 		char choice;
 		String temp = null,
 				socSec,
 				first, 
-				last;
+				last, type;
 		System.out.println("/nEnter New Account Number:");
 
 		// Checks read-in the account number
@@ -686,8 +684,7 @@ public class BankAcctV3_Main {
 
 			socSec = temp;//setting socSec to right account
 			//Making new Bank account object
-			bankAcc[numAccts] = new BankAccount();
-
+//Call new account here?
 			//Prompt for user to choose an account type
 			System.out.println("Select an account type from following options:");
 			System.out.println();
@@ -704,15 +701,15 @@ public class BankAcctV3_Main {
 			switch (choice) {
 			case 'c':
 			case 'C':
-				bankAcc[numAccts].setAccType("Checkings");
+				type = "Checkings";
 				break;
 			case 's':
 			case 'S':
-				bankAcc[numAccts].setAccType("Savings");
+				type = "Savings";
 				break;
 			case 'D':
 			case 'd':
-				bankAcc[numAccts].setAccType("CD");
+				type = "CD";
 				break;
 			default:
 				outFile.println("Error: " + choice + 
@@ -723,9 +720,9 @@ public class BankAcctV3_Main {
 			}
 			//prompts for initial deposit
 			System.out.println("Enter your inital opening deposit: ");
-			bankAcc[numAccts].setAccBal(kybd.nextDouble());
-			bankAcc[numAccts].setAccNum(accountNew);
-			bankAcc[numAccts].setAccDet( first,last, socSec );
+			accountBal = (kybd.nextDouble());
+			accountNum = accountNew;
+			Bank.openNewAccount(accountNum, accountBal, first, last, socSec, type);
 			outFile.println("Transaction Requested: Create New Account");
 			outFile.printf("New "+ bankAcc[numAccts].getAccType() +
 					" Account with account number \"" + accountNew 
@@ -733,7 +730,6 @@ public class BankAcctV3_Main {
 					+ "\nwas created and has a "
 					+ "balance of $" );
 			outFile.printf("%.2f \n", bankAcc[numAccts].getAccBal());
-			numAccts++;
 			outFile.flush();						
 		}
 		else 
