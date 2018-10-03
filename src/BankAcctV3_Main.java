@@ -722,7 +722,9 @@ public class BankAcctV3_Main {
 			System.out.println("Enter your inital opening deposit: ");
 			accountBal = (kybd.nextDouble());
 			accountNum = accountNew;
-			Bank.openNewAccount(accountNum, accountBal, first, last, socSec, type);
+			bankAcc[numAccts]= new BankAccount();
+			Bank bank = new Bank();
+			Bank.openNewAccount(accountNum,numAccts, accountBal, first, last, socSec, type);
 			outFile.println("Transaction Requested: Create New Account");
 			outFile.printf("New "+ bankAcc[numAccts].getAccType() +
 					" Account with account number \"" + accountNew 

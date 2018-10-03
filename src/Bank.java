@@ -10,14 +10,14 @@ public class Bank {
 
 	
 	public Bank() {
-		Bank bank = new Bank();
+//		Bank bank = new Bank();
 		bankName ="";
 	}
 	
-	public boolean openNewAccount( int accountNum, double accBal, String first, 
+	public static boolean openNewAccount( int numAccts, int accountNum, double accBal, String first, 
 			String last, String socSec, String type) 
 	{	
-		bankAcc[numAccts]= new BankAccount();
+		BankAccount[] bankAcc = new BankAccount[numAccts];		
 		bankAcc[numAccts].setAccNum(accountNum);
 		bankAcc[numAccts].setAccType(type);
 		bankAcc[numAccts].setAccBal(accBal);
