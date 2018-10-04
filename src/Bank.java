@@ -36,7 +36,7 @@ public class Bank {
 	{
 		
 	}
-	
+	//Data member
 	public int findAcctSSN() 
 	{
 		
