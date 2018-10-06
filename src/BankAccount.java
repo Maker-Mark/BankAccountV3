@@ -23,6 +23,7 @@ public class BankAccount {
 	public BankAccount(String first, String last, String social,int accountNum,
 			String type, double bal) 
 	{
+		
 		accNum = accountNum;
 		accType = type;
 		accBal= bal;

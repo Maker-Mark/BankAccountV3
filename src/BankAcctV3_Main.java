@@ -19,8 +19,10 @@ public class BankAcctV3_Main {
 		char choice; // menu item selected
 		boolean not_done = true; // loop control flag
 
+		Bank bank = new Bank();// default bank object creation
+		
 		// Open input test cases file
-		// File testFile = new File("mytestcases.txt");
+		//File testFile = new File("myinput.txt");
 		//File testFile = new File("mytestcases.txt");
 
 		// Create Scanner object
@@ -32,10 +34,10 @@ public class BankAcctV3_Main {
 		PrintWriter outFile = new PrintWriter(System.out);
 
 		/* fill and print initial database */
-		numAccts = readAccts(bankAcc, MAX_NUM);
+		readAccts(bank);
 		outFile.println("NAME:Mark Goldstein");
 		outFile.println("DID EXTRA CREDIT ONE & TWO");
-		printAccts(bankAcc, numAccts, outFile);
+		printAccts(bank, outFile);
 
 
 		/* prompts for a transaction and then calls */
@@ -48,31 +50,31 @@ public class BankAcctV3_Main {
 			case 'Q':
 				not_done = false;
 				outFile.println("Final Database of Accounts:\n");
-				printAccts(bankAcc, numAccts, outFile);
+				printAccts(bank, outFile);
 				break;
 			case 'b':
 			case 'B':
-				balance(bankAcc, numAccts, outFile, kybd);
+//				balance(bankAcc, numAccts, outFile, kybd);
 				break;
 			case 'i':
 			case 'I':
-				accountInfo(bankAcc, numAccts, outFile, kybd);
+//				accountInfo(bankAcc, numAccts, outFile, kybd);
 				break;
 			case 'd':
 			case 'D':
-				deposit(bankAcc, numAccts, outFile, kybd);
+//				deposit(bankAcc, numAccts, outFile, kybd);
 				break;
 			case 'w':
 			case 'W':
-				withdrawal(bankAcc, numAccts, outFile, kybd);
+//				withdrawal(bankAcc, numAccts, outFile, kybd);
 				break;
 			case 'n':
 			case 'N':
-				numAccts = newAcct(bankAcc, numAccts, outFile, kybd);
+//				numAccts = newAcct(bankAcc, numAccts, outFile, kybd);
 				break;
 			case 'x':
 			case 'X':
-				numAccts = deleteAcct(bankAcc, numAccts, outFile, kybd);
+//				numAccts = deleteAcct(bankAcc, numAccts, outFile, kybd);
 				break;
 			default:
 				outFile.println("Error: " + choice + 
@@ -108,7 +110,7 @@ public class BankAcctV3_Main {
 	 * array and returns the number of active accounts
 	 */
 
-	public static int readAccts(BankAccount[] account, int maxAccts) 
+	public static int readAccts(Bank bank) 
 			throws IOException {
 		// Open database input file
 		// Create File object for initial database
@@ -125,16 +127,18 @@ public class BankAcctV3_Main {
 		int count = 0, accNum;
 		double bal;
 
-		while (sc.hasNext() && count < maxAccts) {
+		while (sc.hasNext()) {
 
 			line = sc.nextLine();
 			StringTokenizer lineTok = new StringTokenizer(line);	
-			first = lineTok.nextToken();
-			last = lineTok.nextToken();
-			social = lineTok.nextToken();
-			accNum = Integer.parseInt(lineTok.nextToken());
-			type = lineTok.nextToken();
-			bal = Double.parseDouble(lineTok.nextToken());
+	
+			
+//			Depositor myDepositor = new Depositor( lineTok.nextToken(), 
+//					lineTok.nextToken(),lineTok.nextToken() );
+		
+//			accNum = Integer.parseInt(lineTok.nextToken());
+//			type = lineTok.nextToken();
+//			bal = Double.parseDouble(lineTok.nextToken());
 
 			/*		EXTRA CREDIT NUMBER 2
 			 * Takes local variables that are read from tokenizer
@@ -143,8 +147,15 @@ public class BankAcctV3_Main {
 			 * in one line of code.
 			 */
 
-			account[count] = new BankAccount(first, last, social, accNum, type, bal);
-			count++;
+//			account[count] = new BankAccount(first, last, social, accNum, type, bal);
+//			count++;
+			
+			//sets depositor,name and bank acc in one step sends name and makes nested name with used params
+			BankAccount bankAcc = new BankAccount(lineTok.nextToken(), 
+					lineTok.nextToken(),lineTok.nextToken(), Integer.parseInt(lineTok.nextToken()), 
+							lineTok.nextToken(), Double.parseDouble(lineTok.nextToken()));
+			bank.openNewAccount(bankAcc);
+			System.out.println(bankAcc.getAccType());
 		}
 
 		// closes the input file
@@ -165,32 +176,34 @@ public class BankAcctV3_Main {
 	 * Output: Prints the database of account
 	 */
 
-	public static void printAccts(BankAccount[] bankAcc, 
-			int numAccts, PrintWriter outFile) {
-		outFile.println();
+	public static void printAccts(Bank bank, PrintWriter outFile) {
+		
+		Name myName = new Name();
+		Depositor myDepositor = new Depositor();
+		BankAccount myBankAcc = new BankAccount();
+		
 		outFile.println("\t\t\t\t\t\tDatabase of Bank Accounts\n");
-
 		outFile.printf("First \t   Last\t\t    Social Security#    Account#"
 				+ "\tAccount Type   Balance \n");
 		outFile.println("/----------------------------------------------"
 				+ "----------------------------------\\");
-		for (int index = 0; index < numAccts; index++) {
+		
+		for (int index = 0; index < bank.getNumAcc(); index++) {
 			outFile.println();
-			outFile.printf("%-11s", bankAcc[index].getAccDet().getNameOnAcc().
-					getFirst());
-			outFile.printf("%-16s", bankAcc[index].getAccDet().getNameOnAcc().
-					getLast());
-			outFile.printf("%-17s", bankAcc[index].getAccDet().getSocSec());
-			outFile.printf("%-13s", bankAcc[index].getAccNum());
-			outFile.printf("%-14s", bankAcc[index].getAccType());
-			outFile.printf("$%9.2f", bankAcc[index].getAccBal());
-			outFile.println();
+			myBankAcc = bank.getAcctInfo(index);
+////			outFile.printf("%-11s", myName.getFirst());
+////			outFile.printf("%-16s", myName.getLast());
+////			outFile.printf("%-17s", myDepositor.getSocSec());
+			outFile.printf("%-13s", myBankAcc.getAccNum());
+//			outFile.printf("%-14s", myBankAcc.getAccType());
+//			outFile.printf("$%9.2f", myBankAcc.getAccBal());
+//			outFile.println();
 		}
-		outFile.println("\\----------------------------------------------"
-				+ "----------------------------------/");
-		outFile.println();
-		// Flushes the output file
-		outFile.flush();
+//		outFile.println("\\----------------------------------------------"
+//				+ "----------------------------------/");
+//		outFile.println();
+//		// Flushes the output file
+//		outFile.flush();
 	}
 
 	/*
@@ -724,7 +737,7 @@ public class BankAcctV3_Main {
 			accountNum = accountNew;
 			bankAcc[numAccts]= new BankAccount();
 			Bank bank = new Bank();
-			Bank.openNewAccount(accountNum,numAccts, accountBal, first, last, socSec, type);
+//			Bank.openNewAccount(accountNum,numAccts, accountBal, first, last, socSec, type);
 			outFile.println("Transaction Requested: Create New Account");
 			outFile.printf("New "+ bankAcc[numAccts].getAccType() +
 					" Account with account number \"" + accountNew 

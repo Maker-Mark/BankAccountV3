@@ -3,8 +3,9 @@ import java.util.Scanner;
 
 public class Bank {
 	final int MAX_NUM = 50;
-	int numAccts = 0; // number of accounts
-	private BankAccount[] bankAcc = new BankAccount[MAX_NUM];
+	
+	int numAccts ; // number of accounts
+	private BankAccount[] bankAcc;
 	private String bankName ;
 	
 
@@ -12,12 +13,20 @@ public class Bank {
 	public Bank() {
 //		Bank bank = new Bank();
 		bankName ="";
+		bankAcc = new BankAccount[MAX_NUM];
 	}
 	
-	public static boolean openNewAccount( int numAccts, int accountNum, double accBal, String first, 
+	
+	public void openNewAccount( BankAccount bankAccount) {
+		bankAcc[numAccts]=  bankAccount;
+		numAccts++;
+		
+	}
+	
+	public  boolean openNewAccount( int numAccts, int accountNum, double accBal, String first, 
 			String last, String socSec, String type) 
 	{	
-		BankAccount[] bankAcc = new BankAccount[numAccts];		
+		bankAcc = new BankAccount[numAccts];		
 		bankAcc[numAccts].setAccNum(accountNum);
 		bankAcc[numAccts].setAccType(type);
 		bankAcc[numAccts].setAccBal(accBal);
@@ -27,27 +36,29 @@ public class Bank {
 		
 	}
 	
-	public boolean deleteAcct() 
+//	public boolean deleteAcct() 
+//	{
+//		
+//	}
+////	
+//	public int findAcct()
+//	{
+//		
+//	}
+//	//Data member
+//	//another one
+//	public int findAcctSSN() 
+//	{
+//		
+//	}
+//	
+	public BankAccount getAcctInfo(int index) 
 	{
-		
+		return bankAcc[index];
 	}
-	
-	public int findAcct()
-	{
-		
+	public int getNumAcc() {
+		return numAccts;
 	}
-	//Data member
-	//another one
-	public int findAcctSSN() 
-	{
-		
-	}
-	
-	public BankAccount getAcct() 
-	{
-		
-	}
-	
 	public void setAcct() 
 	{
 		
