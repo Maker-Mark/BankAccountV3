@@ -13,7 +13,7 @@ public class Bank {
 	public Bank() {
 //		Bank bank = new Bank();
 		bankName ="";
-		bankAcc = new BankAccount[MAX_NUM];
+		bankAcc = new BankAccount[numAccts];
 	}
 	
 	
