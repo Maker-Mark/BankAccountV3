@@ -2,28 +2,44 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Bank {
-	final int MAX_NUM = 50;
-	
-	int numAccts ; // number of accounts
+	private final int MAX_NUM = 50;
+
+	private int numAccts ; // number of accounts
 	private BankAccount[] bankAcc;
 	private String bankName ;
-	
 
-	
+
+	//Default constructor for creating bank account   
+
 	public Bank() {
-//		Bank bank = new Bank();
-		bankName ="";
-		bankAcc = new BankAccount[numAccts];
+		bankName = "E Corp";
+		bankAcc = new BankAccount[MAX_NUM];
+		numAccts = 0;
 	}
-	
-	
+
+	/*
+	 * Method openNewAccount(): 
+	 * Input: BankAccount object
+	 * Process: Assigns object passed to numAcct spot of bank account arry
+	 * Output: Void
+	 */
 	public void openNewAccount( BankAccount bankAccount) {
 		bankAcc[numAccts]=  bankAccount;
 		numAccts++;
-		
+
 	}
-	
-	public  boolean openNewAccount( int numAccts, int accountNum, double accBal, String first, 
+	/*
+	 * Method openNewAccount(): 
+	 * Input: Parameters for making a new account with attributes being read in
+	 * ie from a file or keyboard.
+	 * Process: Makes new account in bankAcct array, at numAccts spot, uses setter methods
+	 * to set the details. Nested classes are used and passed to successfully do this.
+	 * Output: 
+	 */
+
+	//CHNAGE FROM BOOLEAN TO ERROR MESSAGES  
+
+	public void openNewAccount( int numAccts, int accountNum, double accBal, String first, 
 			String last, String socSec, String type) 
 	{	
 		bankAcc = new BankAccount[numAccts];		
@@ -32,35 +48,71 @@ public class Bank {
 		bankAcc[numAccts].setAccBal(accBal);
 		bankAcc[numAccts].setAccDet(first,last, socSec);
 		numAccts++;
-		return true;
-		
+
+
 	}
-	
-//	public boolean deleteAcct() 
-//	{
-//		
-//	}
-////	
-//	public int findAcct()
-//	{
-//		
-//	}
-//	//Data member
-//	//another one
-//	public int findAcctSSN() 
-//	{
-//		
-//	}
-//	
-	public BankAccount getAcctInfo(int index) 
+
+	public void deleteAcct(int index) 
+
+	{
+
+		bankAcc[index].setAccBal(bankAcc[numAccts -1].getAccBal());
+		bankAcc[index].setAccNum(bankAcc[numAccts - 1].getAccNum());
+		bankAcc[index].setAccDet(bankAcc[numAccts - 1].getAccDet().
+				getNameOnAcc().getFirst(), 
+				bankAcc[numAccts - 1].getAccDet()
+				.getNameOnAcc().getLast(),
+				bankAcc[numAccts- 1].getAccDet().getSocSec());
+		bankAcc[index].setAccType(bankAcc[numAccts - 1].getAccType());
+		numAccts--;
+
+	}
+	//	
+
+
+	public int findAcct( int requestedAccount)
+	{
+		for (int index = 0; index < numAccts; index++)
+			if (bankAcc[index].getAccNum() == requestedAccount)
+				return index;// returns index
+		return -1;
+	}
+	//	//Data member
+	//	//another one
+	public int findAcctSSN(String social ) 
+	{
+
+		if(social.length() == 9) {
+			for (int index = 0; index < numAccts; index++) {
+				if (bankAcc[index].getAccDet().
+						getSocSec().equals(social)) {
+					System.out.print(index);
+					return index;
+				}
+			}
+			return -1;//flag for no account found
+
+		} else {
+			return -2;
+		}
+	}
+	public BankAccount getAcct(int index) 
 	{
 		return bankAcc[index];
 	}
+
 	public int getNumAcc() {
 		return numAccts;
 	}
-	public void setAcct() 
+
+	public void setAcctInfo(int index, double amount, boolean deposit) 
 	{
-		
+		if (deposit) {
+			bankAcc[index].setAccBal((bankAcc[index].getAccBal() + amount ));
+		}else {
+
+			bankAcc[index].setAccBal((bankAcc[index].getAccBal() - amount));
+
+		}
 	}
 }

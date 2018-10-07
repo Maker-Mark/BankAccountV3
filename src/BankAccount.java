@@ -1,3 +1,6 @@
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 /**
  * DID EXTRA CREDIT #1 and #2
  * @author Mark Goldstein
@@ -52,7 +55,7 @@ public class BankAccount {
 	{
 		accType = type;
 	}
-
+//Add set
 	public void setAccBal(double bal) 
 	{
 		accBal = bal;
@@ -60,6 +63,17 @@ public class BankAccount {
 
 	public double getAccBal() 
 	{
+		return accBal;
+	}
+	
+	public double getAccBal(BankAccount[] bankAcc, int numAccts,
+			PrintWriter outFile, Scanner kybd) 
+	{
+		Bank bank;
+		int request;
+		
+		
+		
 		return accBal;
 	}
 
