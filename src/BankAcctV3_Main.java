@@ -30,11 +30,11 @@ public class BankAcctV3_Main {
 
 		// Open input test cases file
 		//File testFile = new File("myinput.txt");
-		//File testFile = new File("mytestcases.txt");
+		File testFile = new File("mytestcases.txt");
 
 		// Create Scanner object
-		//Scanner kybd = new Scanner(testFile);
-		Scanner kybd = new Scanner(System.in);
+		Scanner kybd = new Scanner(testFile);
+		//Scanner kybd = new Scanner(System.in);
 
 		// open the output file
 		//PrintWriter outFile = new PrintWriter("myoutput.txt");
@@ -630,13 +630,13 @@ public class BankAcctV3_Main {
 		String temp = null,
 				socSec,
 				first, 
-				last, type = null;
+				last, 
+				type = null;
 		System.out.println("/nEnter New Account Number:");
 
 		// Checks read-in the account number
 		if (kybd.hasNextInt()) { // Validates input
 			accLength = kybd.next();
-
 
 			if (accLength.length() != 6 || Integer.parseInt(accLength) < 100000) 
 			{
@@ -734,7 +734,7 @@ public class BankAcctV3_Main {
 			accountNum = accountNew;	
 
 			BankAccount bankAcc = new BankAccount( first, last, socSec, accountNum, type, accountBal);
-
+			//Calling open new account
 			bank.openNewAccount(bankAcc);	
 			outFile.println("Transaction Requested: Create New Account");
 			outFile.printf("New "+ bank.getAcct(numAccLoc).getAccType() +
@@ -784,7 +784,7 @@ public class BankAcctV3_Main {
 			delAcct = Integer.parseInt(accLength);
 
 			delTemp = Integer.toString(delAcct);
-
+			index = bank.findAcct(delAcct);
 			if (index == -1) {
 				outFile.println("Transaction Requested: Delete Account");
 				outFile.println("Error: Account entered does not exist!");

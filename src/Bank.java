@@ -1,5 +1,4 @@
-import java.io.PrintWriter;
-import java.util.Scanner;
+
 
 public class Bank {
 	private final int MAX_NUM = 50;
@@ -55,7 +54,6 @@ public class Bank {
 	public void deleteAcct(int index) 
 
 	{
-
 		bankAcc[index].setAccBal(bankAcc[numAccts -1].getAccBal());
 		bankAcc[index].setAccNum(bankAcc[numAccts - 1].getAccNum());
 		bankAcc[index].setAccDet(bankAcc[numAccts - 1].getAccDet().
@@ -65,7 +63,6 @@ public class Bank {
 				bankAcc[numAccts- 1].getAccDet().getSocSec());
 		bankAcc[index].setAccType(bankAcc[numAccts - 1].getAccType());
 		numAccts--;
-
 	}
 	//	
 
