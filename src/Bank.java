@@ -102,8 +102,15 @@ public class Bank {
 		return numAccts;
 	}
 
+	
+	/**
+	 * Does deposits and withdrawals using boolean to distingu
+	 * @param index
+	 * @param amount
+	 * @param deposit
+	 */
 	public void setAcctInfo(int index, double amount, boolean deposit) 
-	{
+	{ 
 		if (deposit) {
 			bankAcc[index].setAccBal((bankAcc[index].getAccBal() + amount ));
 		}else {
