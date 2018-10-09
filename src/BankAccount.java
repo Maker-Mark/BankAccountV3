@@ -1,5 +1,3 @@
-import java.io.PrintWriter;
-import java.util.Scanner;
 
 /**
  * DID EXTRA CREDIT #1 and #2
@@ -66,16 +64,6 @@ public class BankAccount {
 		return accBal;
 	}
 	
-//	public double getAccBal(BankAccount[] bankAcc, int numAccts,
-//			PrintWriter outFile, Scanner kybd) 
-//	{
-//		Bank bank;
-//		int request;
-//		
-//		
-//		
-//		return accBal;
-//	}
 
 	public String getAccType() 
 	{

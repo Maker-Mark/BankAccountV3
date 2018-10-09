@@ -1,6 +1,4 @@
-NAME:Mark Goldstein
-DID EXTRA CREDIT ONE & TWO
-
+MARK GOLDSTEIN
 						Database of Bank Accounts
 
 First 	   Last		    Social Security#    Account#	Account Type   Balance 
@@ -37,7 +35,7 @@ Error: Account number 122221 does not exist.
 Transaction Requested: Deposit
 Account Number: 100006
 Old Balance: $6.43
-Amount to Deposit: $1000.43
+Amount to Deposit: 1000.43 
 New Balance: $1006.86
 
 Transaction Requested: Deposit
@@ -49,8 +47,8 @@ Error: Account number 122224 does not exist.
 
 Transaction Requested: Withdrawal
 Account Number: 100003
-Old Balance: $9001.02
-Amount to Withdrawal: $100.0
+Old Balance: $9001.02 
+Amount to Withdrawal: $100.00
 New Balance: $8901.02
 
 Transaction Requested: Withdrawal
@@ -59,7 +57,7 @@ Error: $-12000.00 is an invalid amount
 
 Transaction Requested: Withdrawal
 Account Number: 100003
-Error: Insufficient funds!
+Error: Insufficient funds! You currently have $8901.02
 
 Transaction Requested: Withdrawal
 Error: Account number 134243 does not exist
@@ -84,37 +82,26 @@ Error: Account number entered invalid!
 Account numbers must be a 6-digit integer 
 between 100000 and 999999.
 
-Transaction Requested: Create New Account
-Error: Account number 200002 is already in use.
-
-Transaction Requested: Deposit
-Account Number: 200002
-Old Balance: $0.00
-Amount to Deposit: $100.0
-New Balance: $100.00
-
 Transaction Requested: Deposit
 Account Number: 200001
 Old Balance: $0.00
-Amount to Deposit: $1338.0
+Amount to Deposit: 1338.00 
 New Balance: $1338.00
 
 Transaction Requested: Withdrawal
 Account Number: 200002
-Old Balance: $100.00
-Amount to Withdrawal: $50.0
-New Balance: $50.00
+Error: Insufficient funds! You currently have $0.00
 
 Transaction Requested: Deposit
 Account Number: 200002
-Old Balance: $50.00
-Amount to Deposit: $3200.0
-New Balance: $3250.00
+Old Balance: $0.00
+Amount to Deposit: 3200.00 
+New Balance: $3200.00
 
 Transaction Requested: Deposit
 Account Number: 200003
 Old Balance: $0.00
-Amount to Deposit: $3115.99
+Amount to Deposit: 3115.99 
 New Balance: $3115.99
 
 Transaction Requested: Delete Account
@@ -126,8 +113,8 @@ Remove $4600.00 from account before deleting.
 
 Transaction Requested: Withdrawal
 Account Number: 100001
-Old Balance: $4600.00
-Amount to Withdrawal: $4600.0
+Old Balance: $4600.00 
+Amount to Withdrawal: $4600.00
 New Balance: $0.00
 
 Transaction Requested: Delete Account
@@ -140,32 +127,29 @@ Error: o is an invalid selection -  try again
 
 Error: t is an invalid selection -  try again
 
-
 Transaction Requested: Account Information
 Sucessfully found account linked to SS# "100000001" below:
 
-First 	   Last		    Social Security#    Account#	Account Type   Balance
+First 	   Last		    Social Security#    Account#	Account Type   Balance 
 /--------------------------------------------------------------------------------\
 Mark       Goldstein       100000001        200001       Savings       $  1338.00 
 \--------------------------------------------------------------------------------/
 
-
 Transaction Requested: Account Information
-Error: No account with Social Security#:"123456789" found.
+Error: No account with Social Security#:"123456789" found. 
 
 Transaction Requested: Account Information
 Error: "123csf" is an invalid entry.
-Social Security numbersmust be 9 consecutive integers.
+Social Security numbers must be 9 consecutive integers.
 
-Final Database of Accounts:
-
+Final Database:
 
 						Database of Bank Accounts
 
 First 	   Last		    Social Security#    Account#	Account Type   Balance 
 /--------------------------------------------------------------------------------\
 
-Barry      Bonds           100000002        200002       Checkings     $  3250.00
+Barry      Bonds           100000002        200002       Checkings     $  3200.00
 
 Joe        Ritz            100000003        200003       CD            $  3115.99
 

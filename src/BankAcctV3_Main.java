@@ -2,9 +2,11 @@
 /**
  * 
  * @author Mark Goldstein
- * @version 0.02
- * @date 9/26/2018
- * this is a test of changes
+ * @version 0.03
+ * @date 10/10/2018
+ * @description:
+ * Migrated technical functionality of main methods to Bank
+ * Class object while keeping all I/O in the main program.
  * 
  */
 import java.io.*;
@@ -12,15 +14,6 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class BankAcctV3_Main {
-
-
-
-	/*
-	 * Method (): 
-	 * Input: 
-	 * Process: 
-	 * Output: 
-	 */
 
 	public static void main(String[] args) throws IOException {
 		// constant definitions
@@ -39,11 +32,12 @@ public class BankAcctV3_Main {
 		//Scanner kybd = new Scanner(System.in);
 
 		// open the output file
-		//PrintWriter outFile = new PrintWriter("myoutput.txt");
-		PrintWriter outFile = new PrintWriter(System.out);
+		PrintWriter outFile = new PrintWriter("myoutput.txt");
+		//PrintWriter outFile = new PrintWriter(System.out);
 
 		/* fill and print initial database */
 		readAccts(bank);
+		outFile.println("MARK GOLDSTEIN");
 		printAccts(bank, outFile);
 		/* prompts for a transaction and then calls */
 		/* on functions to process the requested transaction */
@@ -54,7 +48,7 @@ public class BankAcctV3_Main {
 			case 'q':
 			case 'Q':
 				not_done = false;
-				outFile.println("Final Database of Accounts:\n");
+				outFile.println("Final Database:\n");
 				printAccts(bank, outFile);
 				break;
 			case 'b':
@@ -111,45 +105,35 @@ public class BankAcctV3_Main {
 	 * Process: Reads the initial database of accounts, balances,
 	 * social security number and account type into database.
 	 * 
-	 * Output: Fills in the initial BankAccount bankAcc
-	 * array and returns the number of active accounts
+	 * Output: Fills in the initial BankAccount array via Bank object.
 	 */
 
 	public static void readAccts(Bank bank) 
 			throws IOException {
+		
 		// Open database input file
 		// Create File object for initial database
 		File dbFile = new File("myinput.txt");
 		Scanner sc = new Scanner(dbFile);
-
 		//Strings to read in and assign account info local variable
 		String line;
-		//		int count = 0;
 
 		while (sc.hasNext()) {
-
 			line = sc.nextLine();
 			StringTokenizer lineTok = new StringTokenizer(line);	
-
 			//sets depositor,name and bank acc in one step sends name and makes nested name with used params
 			BankAccount bankAcc = new BankAccount(lineTok.nextToken(), 
 					lineTok.nextToken(),lineTok.nextToken(), Integer.parseInt(lineTok.nextToken()), 
 					lineTok.nextToken(), Double.parseDouble(lineTok.nextToken()));
-
 			bank.openNewAccount(bankAcc);
-
 		}
-
 		// closes the input file
 		sc.close();
-
-		// return the account number count
 	}
 
 	/*
 	 * Method printAccts(): 
-	 * Input: BankAccount[] array "bankAcc" - array of accounts
-	 * numAccts - number of active accounts
+	 * Input: Bank object
 	 * outFile - reference to the output file 
 	 * Process: Prints the database of bank accounts and
 	 * their respective attributes.
@@ -162,8 +146,8 @@ public class BankAcctV3_Main {
 		Name myName = new Name();
 		BankAccount myBankAcc = new BankAccount();
 
-		outFile.println("\t\t\t\tDatabase of Bank Accounts\n");
-		outFile.printf("First \t   Last\t\tSocial Security#    Account#"
+		outFile.println("\t\t\t\t\t\tDatabase of Bank Accounts\n");
+		outFile.printf("First \t   Last\t\t    Social Security#    Account#"
 				+ "\tAccount Type   Balance \n");
 		outFile.println("/----------------------------------------------"
 				+ "----------------------------------\\");
@@ -180,7 +164,6 @@ public class BankAcctV3_Main {
 			outFile.printf("%-14s", myBankAcc.getAccType());
 			outFile.printf("$%9.2f", myBankAcc.getAccBal());
 			outFile.println();
-
 		}
 		outFile.println("\\----------------------------------------------"
 				+ "----------------------------------/");
@@ -211,21 +194,13 @@ public class BankAcctV3_Main {
 		System.out.println("\t     I -- Account Information");
 		System.out.println("\t     X -- Delete Account");
 		System.out.println("\t     Q -- Quit");
-		System.out.println();
 		System.out.print("\tEnter your selection: ");
+		System.out.println();
+	
 
 	}
 
-	//	/*
-	//	 * Method findAcct(): Input:BankAccount[] array "bankAcc"
-	//	 * requestedAccount - requested account
-	//	 * 
-	//	 * Process: Performs a linear search on the bankAcc array for
-	//	 * the requested account. 
-	//	 * 
-	//	 * Output: If found, the index of the requested account is
-	//	 * returned Otherwise, returns -1.
-	//	 */
+	//Replaced find account method with bank class method .findAcct
 
 	/*
 	 * Method accountInfo():
@@ -245,7 +220,6 @@ public class BankAcctV3_Main {
 		//Makes temp string to ensure validity
 		String tempInput;
 		int temp = 0 ;// temporary index that will be tested for validity.
-		outFile.println();
 		System.out.println("Enter Social Secial Security Number"
 				+ " to Get Account Information");
 		outFile.flush();
@@ -258,7 +232,7 @@ public class BankAcctV3_Main {
 				outFile.println("Transaction Requested: Account Information");
 				outFile.print("Sucessfully found account linked to SS# \"" 
 						+ tempInput+ "\" below:\n\n");
-				outFile.printf("First \t   Last\t\tSocial Security#    Account#"
+				outFile.printf("First \t   Last\t\t    Social Security#    Account#"
 						+ "\tAccount Type   Balance \n");
 				outFile.println("/----------------------------------------------"
 						+ "----------------------------------\\");
@@ -280,8 +254,8 @@ public class BankAcctV3_Main {
 			{//Error message for valid but not found
 				outFile.println("Transaction Requested: Account Information");
 
-				outFile.print("Error: No account with Social Security#:\""
-						+ tempInput + "\" found.");
+				outFile.printf("Error: No account with Social Security#:\""
+						+ tempInput + "\" found. \n");
 			}
 			else if (temp ==  -2)
 			{ //Error for invalid length
@@ -308,7 +282,7 @@ public class BankAcctV3_Main {
 	 * outFile - reference to output file kybd - reference to the "test cases" input
 	 * file .
 	 * 
-	 * Process: Prompts for the requested account Calls findAcct() method from bank class
+	 * Process: Prompts for the requested account Calls findAcct() method from bank object
 	 * to see if the account exists If the account exists, the balance is printed Otherwise,
 	 * an error message is printed .
 	 * 
@@ -370,7 +344,6 @@ public class BankAcctV3_Main {
 	/*
 	 * Method deposit(): 
 	 * Input: Bank object
-	 *  - reference to the "test cases" input file
 	 * 
 	 * Process: Prompts for the requested account Calls Bank object findacct() to see if the
 	 * account exists If the account exists, prompts for the amount to deposit If
@@ -429,19 +402,17 @@ public class BankAcctV3_Main {
 					} 
 					else 
 					{
+						boolean deposit = true;
 						outFile.println("Transaction Requested: Deposit");
 						outFile.println("Account Number: " + requestedAccount);
 						outFile.printf("Old Balance: $%.2f", bank.getAcct(index).getAccBal());
 						outFile.println();
-						outFile.println("Amount to Deposit: "
-								+ "$" + amountToDeposit);
-						// make the deposit
-						boolean deposit = true;
-						bank.setAcctInfo(index, amountToDeposit, deposit);
+						outFile.printf("Amount to Deposit: %.2f \n" , amountToDeposit);
+						// Makes the deposit via Bank object method 
+						bank.setAcctInfo(index, amountToDeposit, deposit); 
 						outFile.printf("New Balance: $%.2f", bank.getAcct(index).getAccBal());
 						outFile.println();
 					}
-
 				} 
 				else 
 				{ // invalid amount to deposit
@@ -511,7 +482,7 @@ public class BankAcctV3_Main {
 				else 
 				{ // Signals valid account
 					// Prompts for withdrawal
-					System.out.print("Enter amount to Withdrawal: "); 
+					System.out.print("Enter amount to Withdraw: "); 
 					// Ensures correct input
 					if (kybd.hasNextDouble()) {
 						amountToWithdraw = kybd.nextDouble();
@@ -529,7 +500,7 @@ public class BankAcctV3_Main {
 						{// User trying to withdraw more than they have
 							outFile.println("Transaction Requested: Withdrawal");
 							outFile.println("Account Number: " + requestedAccount);
-							outFile.printf("Error: Insufficient funds!");
+							outFile.printf("Error: Insufficient funds! You currently have $%.2f", bank.getAcct(index).getAccBal());
 							outFile.println();
 
 						}
@@ -538,14 +509,13 @@ public class BankAcctV3_Main {
 							outFile.println("Transaction Requested: Withdrawal");
 							outFile.println("Account Number: " + requestedAccount);
 							outFile.printf("Old Balance: "
-									+ "$%.2f", bank.getAcct(index).getAccBal());
-							outFile.println();
-							outFile.println("Amount to Withdrawal:"
-									+ " $" + amountToWithdraw);
+									+ "$%.2f ", bank.getAcct(index).getAccBal());
+							
+							outFile.printf("\nAmount to Withdrawal: $%.2f",  amountToWithdraw);
 							boolean deposit = false;//Telling bank 
 							bank.setAcctInfo(index, amountToWithdraw, deposit);
 
-							outFile.printf("New Balance: "
+							outFile.printf("\nNew Balance: "
 									+ "$%.2f", bank.getAcct(index).getAccBal());
 							outFile.println();
 						}
@@ -600,7 +570,7 @@ public class BankAcctV3_Main {
 				first = null, 
 				last = null, 
 				type = null;
-		System.out.println("/nEnter New Account Number:");
+		System.out.println("Enter New Account Number:");
 
 		// Checks read-in the account number
 		if (kybd.hasNextInt()) { // Validates input
@@ -626,24 +596,30 @@ public class BankAcctV3_Main {
 							" is already in use.\n");
 					outFile.flush();
 				}
-				//Setting values for first and last name
-				System.out.println("Enter your first name:");
-				first = kybd.next();
-				System.out.println("Enter your last name:");
-				last = kybd.next();
-				System.out.println("Enter Social Security number:");
-				outFile.flush();
-				//Ensures validity of social security number
-				if(kybd.hasNextInt() ) {
-					temp = kybd.next();
-					if(temp.length()!= 9) {
-						outFile.println("ERROR:Invalid entry."
-								+ " Social Security number "+ temp +
-								" must be 9 digits long\n");
-						outFile.flush();
-					}
-				}
 			}
+			//Setting values for first and last name
+			System.out.println("Enter your first name:");
+			first = kybd.next();
+			System.out.println("Enter your last name:");
+			last = kybd.next();
+			System.out.println("Enter Social Security number:");
+			outFile.flush();
+			//Ensures validity of social security number
+			if(kybd.hasNextInt() ) {
+				temp = kybd.next();
+				if(temp.length()!= 9) {
+					outFile.println("ERROR:Invalid entry."
+							+ " Social Security number "+ temp +
+							" must be 9 digits long\n");
+					outFile.flush();
+
+				}
+			}else { 
+				outFile.println("ERROR:Invalid entry."
+						+ " Social Security numbers must be 9 digits long\n");
+
+			}
+
 			int numAccLoc = bank.getNumAcc();
 			//Checks to see if account with valid social security number exists
 			for(int i = 0; i < bank.getNumAcc(); i++) {
@@ -707,7 +683,8 @@ public class BankAcctV3_Main {
 					+ "balance of $" );
 			outFile.printf("%.2f \n", bank.getAcct(numAccLoc).getAccBal());
 
-			outFile.flush();	
+			outFile.flush();
+		
 		}
 		else 
 		{ // Message for invalid account number entered
@@ -717,78 +694,83 @@ public class BankAcctV3_Main {
 					+ "\nAccount numbers must be a 6-digit integer "
 					+ "\nbetween 100000 and 999999.\n");
 			outFile.flush();
+
 		}
+
 		outFile.println();
 		outFile.flush();
+
 	}
 
-	/*
-	 * Method deleteAcct(): 
-	 * Input: Existing account number
-	 *
-	 * Process: Ensures account balance is at 0.00 and delete account. 
-	 * Makes sure account info is valid, and that
-	 * the balance of the account is at 0. 
-	 * 
-	 * Output: If account is invalid or not empty
-	 * displays the amount needed to withdraw to complete the 
-	 * transaction.
-	 */
 
-	public static void deleteAcct(Bank bank, 
-			PrintWriter outFile, Scanner kybd) {
-		int delAcct, index = 0;
-		String delTemp, accLength; // Setting up accounts as strings to test validity
-		System.out.println("Enter Account Number for deletion:");
-		if (kybd.hasNextInt()) {
-			accLength = kybd.next();
-			delAcct = Integer.parseInt(accLength);
 
-			delTemp = Integer.toString(delAcct);
-			index = bank.findAcct(delAcct);
-			if (index == -1) {
-				outFile.println("Transaction Requested: Delete Account");
-				outFile.println("Error: Account entered does not exist!");
-			} 
-			else if (Integer.parseInt(delTemp) <= 100000 || delTemp.length() != 6) 
-			{
-				outFile.println("Transaction Requested: Delete Account");
-				outFile.printf("Error: Account number entered invalid!"
-						+ "\nAccount numbers must be a 6-digit integer "
-						+ "\nbetween 100000 and 999999.\n\n");
-			} 
-			else if (bank.getAcct(bank.findAcct(delAcct)).getAccBal() != 0.00) 
-			{
-				outFile.println("Transaction Requested: Delete Account");
-				outFile.printf("Error: Account "+delTemp+" is not empty.\nRemove $");
-				outFile.printf("%.2f %s", bank.getAcct(bank.findAcct(delAcct)).getAccBal(), 
-						"from account before deleting.\n");
-			} 
-			else 
-			{ 
-				bank.deleteAcct(index);
-				outFile.println("Transaction Requested: Delete Account");
-				outFile.println("Successfully deleted account number: " + delAcct);
-			}
+/*
+ * Method deleteAcct(): 
+ * Input: Existing account number
+ *
+ * Process: Ensures account balance is at 0.00 and delete account. 
+ * Makes sure account info is valid, and that
+ * the balance of the account is at 0. 
+ * 
+ * Output: If account is invalid or not empty
+ * displays the amount needed to withdraw to complete the 
+ * transaction.
+ */
+
+public static void deleteAcct(Bank bank, 
+		PrintWriter outFile, Scanner kybd) {
+	int delAcct, index = 0;
+	String delTemp, accLength; // Setting up accounts as strings to test validity
+	System.out.println("Enter Account Number for deletion:");
+	if (kybd.hasNextInt()) {
+		accLength = kybd.next();
+		delAcct = Integer.parseInt(accLength);
+
+		delTemp = Integer.toString(delAcct);
+		index = bank.findAcct(delAcct);
+		if (index == -1) {
+			outFile.println("Transaction Requested: Delete Account");
+			outFile.println("Error: Account entered does not exist!");
 		} 
-		else 
-		{ //Error message for invalid account entered
-			accLength = kybd.next();
-			outFile.println("Transaction Requested: New Account");
+		else if (Integer.parseInt(delTemp) <= 100000 || delTemp.length() != 6) 
+		{
+			outFile.println("Transaction Requested: Delete Account");
 			outFile.printf("Error: Account number entered invalid!"
 					+ "\nAccount numbers must be a 6-digit integer "
 					+ "\nbetween 100000 and 999999.\n\n");
+		} 
+		else if (bank.getAcct(bank.findAcct(delAcct)).getAccBal() != 0.00) 
+		{
+			outFile.println("Transaction Requested: Delete Account");
+			outFile.printf("Error: Account "+delTemp+" is not empty.\nRemove $");
+			outFile.printf("%.2f %s", bank.getAcct(bank.findAcct(delAcct)).getAccBal(), 
+					"from account before deleting.\n");
+		} 
+		else 
+		{ 
+			bank.deleteAcct(index);
+			outFile.println("Transaction Requested: Delete Account");
+			outFile.println("Successfully deleted account number: " + delAcct);
 		}
-		outFile.println();
-		outFile.flush();
+	} 
+	else 
+	{ //Error message for invalid account entered
+		accLength = kybd.next();
+		outFile.println("Transaction Requested: New Account");
+		outFile.printf("Error: Account number entered invalid!"
+				+ "\nAccount numbers must be a 6-digit integer "
+				+ "\nbetween 100000 and 999999.\n\n");
+	}
+	outFile.println();
+	outFile.flush();
 
-	}
-	/* Method pause() */
-	public static void pause(Scanner keyboard) {
-		String tempstr;
-		System.out.println();
-		System.out.print("press ENTER to continue");
-		tempstr = keyboard.nextLine(); // flush previous ENTER
-		tempstr = keyboard.nextLine(); // wait for ENTER
-	}
+}
+/* Method pause() */
+public static void pause(Scanner keyboard) {
+	String tempstr;
+	System.out.println();
+	System.out.print("press ENTER to continue");
+	tempstr = keyboard.nextLine(); // flush previous ENTER
+	tempstr = keyboard.nextLine(); // wait for ENTER
+}
 }

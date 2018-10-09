@@ -2,7 +2,6 @@
 
 public class Bank {
 	private final int MAX_NUM = 50;
-
 	private int numAccts ; // number of accounts
 	private BankAccount[] bankAcc;
 	private String bankName ;
@@ -36,8 +35,6 @@ public class Bank {
 	 * Output: 
 	 */
 
-
-
 	public void openNewAccount( int numAccts, int accountNum, double accBal, String first, 
 			String last, String socSec, String type) 
 	{	
@@ -47,8 +44,6 @@ public class Bank {
 		bankAcc[numAccts].setAccBal(accBal);
 		bankAcc[numAccts].setAccDet(first,last, socSec);
 		numAccts++;
-
-
 	}
 
 	/*
@@ -75,7 +70,7 @@ public class Bank {
 
 
 		numAccts--;
-		//decreases numAcct, the number of accounts.
+		//decreases numAccts, the number of accounts.
 	}
 
 
@@ -87,8 +82,7 @@ public class Bank {
 				return index;// returns index
 		return -1;
 	}
-	//	//Data member
-	//	//another one
+
 	public int findAcctSSN(String social ) 
 	{
 
@@ -99,27 +93,26 @@ public class Bank {
 					return index;
 				}
 			}
-			return -1;//flag for no account found
+			return -1;
+			//flag for no account found
 
 		} else {
+			//flag for invalid length
 			return -2;
 		}
 	}
+
 	public BankAccount getAcct(int index) 
 	{
 		return bankAcc[index];
 	}
-
 	public int getNumAcc() {
 		return numAccts;
 	}
-
-
 	/**
-	 * Does deposits and withdrawals using boolean to distingu
-	 * @param index
-	 * @param amount
-	 * @param deposit
+	 * Does deposits and withdrawals using boolean to distinguish 
+	 * if making a deposit, if not, subtracts the amount from acct bal and 
+	 * sets the account balance to that amount.
 	 */
 	public void setAcctInfo(int index, double amount, boolean deposit) 
 	{ 

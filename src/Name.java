@@ -1,5 +1,4 @@
 /**
- * DID EXTRA CREDIT #1 and #2
  * @author Mark Goldstein
  */
 public class Name {
