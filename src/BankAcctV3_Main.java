@@ -115,7 +115,7 @@ public class BankAcctV3_Main {
 	 * array and returns the number of active accounts
 	 */
 
-	public static int readAccts(Bank bank) 
+	public static void readAccts(Bank bank) 
 			throws IOException {
 		// Open database input file
 		// Create File object for initial database
@@ -124,8 +124,7 @@ public class BankAcctV3_Main {
 
 		//Strings to read in and assign account info local variable
 		String line;
-		int count = 0;
-		double bal;
+		//		int count = 0;
 
 		while (sc.hasNext()) {
 
@@ -139,14 +138,12 @@ public class BankAcctV3_Main {
 
 			bank.openNewAccount(bankAcc);
 
-			System.out.println(bankAcc.getAccType());
 		}
 
 		// closes the input file
 		sc.close();
 
 		// return the account number count
-		return count;
 	}
 
 	/*
@@ -163,11 +160,10 @@ public class BankAcctV3_Main {
 	public static void printAccts(Bank bank, PrintWriter outFile) {
 
 		Name myName = new Name();
-		//		Depositor myDepositor = new Depositor();
 		BankAccount myBankAcc = new BankAccount();
 
-		outFile.println("\t\t\t\t\t\tDatabase of Bank Accounts\n");
-		outFile.printf("First \t   Last\t\t    Social Security#    Account#"
+		outFile.println("\t\t\t\tDatabase of Bank Accounts\n");
+		outFile.printf("First \t   Last\t\tSocial Security#    Account#"
 				+ "\tAccount Type   Balance \n");
 		outFile.println("/----------------------------------------------"
 				+ "----------------------------------\\");
@@ -262,8 +258,8 @@ public class BankAcctV3_Main {
 				outFile.println("Transaction Requested: Account Information");
 				outFile.print("Sucessfully found account linked to SS# \"" 
 						+ tempInput+ "\" below:\n\n");
-				outFile.printf("First \t   Last\t\t    Social Security#    Account#"
-						+ "\tAccount Type   Balance\n");
+				outFile.printf("First \t   Last\t\tSocial Security#    Account#"
+						+ "\tAccount Type   Balance \n");
 				outFile.println("/----------------------------------------------"
 						+ "----------------------------------\\");
 				outFile.printf("%-11s", bank.getAcct((temp)).
@@ -591,18 +587,18 @@ public class BankAcctV3_Main {
 	 *
 	 */
 
-	public static int newAcct(Bank bank, 
+	public static void newAcct(Bank bank, 
 			PrintWriter outFile, Scanner kybd) 
 	{
-		int accountNew , accountNum,  index;
+		int accountNew = 0 , accountNum,  index;
 		double accountBal;
 		String accLength;
 		// Sets up new account as string to ensure validity
 		char choice;
 		String temp = null,
 				socSec,
-				first, 
-				last, 
+				first = null, 
+				last = null, 
 				type = null;
 		System.out.println("/nEnter New Account Number:");
 
@@ -617,13 +613,11 @@ public class BankAcctV3_Main {
 						+ "\nAccount numbers must be a 6-digit integer "
 						+ "\nbetween 100000 and 999999.\n");
 				outFile.flush();
-				return 1;
 			} 
 			else 
 			{
 				accountNew = Integer.parseInt(accLength); //Sets account number
 				// Calls findAcct to search if requestedAccount exists
-				//Should this be assigned to index?? If yes, do it for others
 				index = bank.findAcct( accountNew);
 				if (index != -1) // invalid: account in-use
 				{
@@ -631,7 +625,6 @@ public class BankAcctV3_Main {
 					outFile.println("Error: Account number " + accountNew + 
 							" is already in use.\n");
 					outFile.flush();
-					return 2;
 				}
 				//Setting values for first and last name
 				System.out.println("Enter your first name:");
@@ -648,7 +641,6 @@ public class BankAcctV3_Main {
 								+ " Social Security number "+ temp +
 								" must be 9 digits long\n");
 						outFile.flush();
-						return 3;
 					}
 				}
 			}
@@ -660,7 +652,6 @@ public class BankAcctV3_Main {
 					outFile.println("ERROR: Acccount with social security number: "+
 							temp + " already exisits\n");
 					outFile.flush();
-					return 4;
 				}
 			}
 
@@ -729,7 +720,6 @@ public class BankAcctV3_Main {
 		}
 		outFile.println();
 		outFile.flush();
-		return 4;
 	}
 
 	/*
