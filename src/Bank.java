@@ -54,12 +54,16 @@ public class Bank {
 	/*
 	 * Method deleteAcct(): 
 	 * Input:  index of account to delete
-	 * Process: 
-	 * Output: 
+	 * Process: Manipulates BankAccount object array to remove and replace the
+	 * deleted account.
+	 * Output: none
 	 */
 	public void deleteAcct(int index) 
 
 	{
+		//Efficiently deletes account by cutting last account in array 
+		//and replacing the selected account found for deletion.
+
 		bankAcc[index].setAccBal(bankAcc[numAccts -1].getAccBal());
 		bankAcc[index].setAccNum(bankAcc[numAccts - 1].getAccNum());
 		bankAcc[index].setAccDet(bankAcc[numAccts - 1].getAccDet().
@@ -68,9 +72,12 @@ public class Bank {
 				.getNameOnAcc().getLast(),
 				bankAcc[numAccts- 1].getAccDet().getSocSec());
 		bankAcc[index].setAccType(bankAcc[numAccts - 1].getAccType());
+
+
 		numAccts--;
+		//decreases numAcct, the number of accounts.
 	}
-	//	
+
 
 
 	public int findAcct( int requestedAccount)
@@ -89,7 +96,6 @@ public class Bank {
 			for (int index = 0; index < numAccts; index++) {
 				if (bankAcc[index].getAccDet().
 						getSocSec().equals(social)) {
-					System.out.print(index);
 					return index;
 				}
 			}
@@ -108,7 +114,7 @@ public class Bank {
 		return numAccts;
 	}
 
-	
+
 	/**
 	 * Does deposits and withdrawals using boolean to distingu
 	 * @param index

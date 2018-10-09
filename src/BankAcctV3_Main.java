@@ -1,19 +1,19 @@
 //NAME: Mark Goldstein
 /**
-	 * 
-	 * @author Mark Goldstein
-	 * @version 0.02
-	 * @date 9/26/2018
-	 * this is a test of changes
-	 * 
-	 */
+ * 
+ * @author Mark Goldstein
+ * @version 0.02
+ * @date 9/26/2018
+ * this is a test of changes
+ * 
+ */
 import java.io.*;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class BankAcctV3_Main {
 
-	
+
 
 	/*
 	 * Method (): 
@@ -220,16 +220,16 @@ public class BankAcctV3_Main {
 
 	}
 
-//	/*
-//	 * Method findAcct(): Input:BankAccount[] array "bankAcc"
-//	 * requestedAccount - requested account
-//	 * 
-//	 * Process: Performs a linear search on the bankAcc array for
-//	 * the requested account. 
-//	 * 
-//	 * Output: If found, the index of the requested account is
-//	 * returned Otherwise, returns -1.
-//	 */
+	//	/*
+	//	 * Method findAcct(): Input:BankAccount[] array "bankAcc"
+	//	 * requestedAccount - requested account
+	//	 * 
+	//	 * Process: Performs a linear search on the bankAcc array for
+	//	 * the requested account. 
+	//	 * 
+	//	 * Output: If found, the index of the requested account is
+	//	 * returned Otherwise, returns -1.
+	//	 */
 
 	/*
 	 * Method accountInfo():
@@ -248,15 +248,11 @@ public class BankAcctV3_Main {
 			PrintWriter outFile, Scanner kybd) {
 		//Makes temp string to ensure validity
 		String tempInput;
-		int temp = 0 ;// temporary index
-		boolean isValid = false; //flag for validity
-		boolean match = false;
-
+		int temp = 0 ;// temporary index that will be tested for validity.
 		outFile.println();
 		System.out.println("Enter Social Secial Security Number"
 				+ " to Get Account Information");
 		outFile.flush();
-
 		if (kybd.hasNextInt()) //validates input as integer
 		{
 			tempInput = kybd.next();				
@@ -290,7 +286,6 @@ public class BankAcctV3_Main {
 
 				outFile.print("Error: No account with Social Security#:\""
 						+ tempInput + "\" found.");
-
 			}
 			else if (temp ==  -2)
 			{ //Error for invalid length
@@ -313,12 +308,12 @@ public class BankAcctV3_Main {
 
 	/*
 	 * Method balance(): 
-	 * Input: BankAccount array
+	 * Input: Bank object
 	 * outFile - reference to output file kybd - reference to the "test cases" input
 	 * file .
 	 * 
-	 * Process: Prompts for the requested account Calls findAcct() to see if
-	 * the account exists If the account exists, the balance is printed Otherwise,
+	 * Process: Prompts for the requested account Calls findAcct() method from bank class
+	 * to see if the account exists If the account exists, the balance is printed Otherwise,
 	 * an error message is printed .
 	 * 
 	 * Output: If the account exists, the balance is
@@ -345,6 +340,7 @@ public class BankAcctV3_Main {
 			} else {
 				requestedAccount = Integer.parseInt(accLength);
 				// call findAcct to search if requestedAccount exists
+
 				index = bank.findAcct( requestedAccount);
 				if (index == -1) // invalid account
 				{
@@ -377,10 +373,10 @@ public class BankAcctV3_Main {
 
 	/*
 	 * Method deposit(): 
-	 * Input: BankAccount array object
+	 * Input: Bank object
 	 *  - reference to the "test cases" input file
 	 * 
-	 * Process: Prompts for the requested account Calls findacct() to see if the
+	 * Process: Prompts for the requested account Calls Bank object findacct() to see if the
 	 * account exists If the account exists, prompts for the amount to deposit If
 	 * the amount is valid, it makes the deposit and prints the new balance
 	 * Otherwise, an error message is printed. 
@@ -741,9 +737,8 @@ public class BankAcctV3_Main {
 	 * Input: Existing account number
 	 *
 	 * Process: Ensures account balance is at 0.00 and delete account. 
-	 * Manipulates BankAccount object array to remove and replace the
-	 *  deleted account. Makes sure account info is valid, and that
-	 *  the balance of the account is at 0. 
+	 * Makes sure account info is valid, and that
+	 * the balance of the account is at 0. 
 	 * 
 	 * Output: If account is invalid or not empty
 	 * displays the amount needed to withdraw to complete the 
@@ -764,12 +759,16 @@ public class BankAcctV3_Main {
 			if (index == -1) {
 				outFile.println("Transaction Requested: Delete Account");
 				outFile.println("Error: Account entered does not exist!");
-			} else if (Integer.parseInt(delTemp) <= 100000 || delTemp.length() != 6) {
+			} 
+			else if (Integer.parseInt(delTemp) <= 100000 || delTemp.length() != 6) 
+			{
 				outFile.println("Transaction Requested: Delete Account");
 				outFile.printf("Error: Account number entered invalid!"
 						+ "\nAccount numbers must be a 6-digit integer "
 						+ "\nbetween 100000 and 999999.\n\n");
-			} else if (bank.getAcct(bank.findAcct(delAcct)).getAccBal() != 0.00) {
+			} 
+			else if (bank.getAcct(bank.findAcct(delAcct)).getAccBal() != 0.00) 
+			{
 				outFile.println("Transaction Requested: Delete Account");
 				outFile.printf("Error: Account "+delTemp+" is not empty.\nRemove $");
 				outFile.printf("%.2f %s", bank.getAcct(bank.findAcct(delAcct)).getAccBal(), 
@@ -777,13 +776,9 @@ public class BankAcctV3_Main {
 			} 
 			else 
 			{ 
-				//Efficiently deletes account by cutting last account in array 
-				//and replacing the selected account found for deletion.
 				bank.deleteAcct(index);
 				outFile.println("Transaction Requested: Delete Account");
 				outFile.println("Successfully deleted account number: " + delAcct);
-				//decreases numAcct, the number of accounts.
-
 			}
 		} 
 		else 
