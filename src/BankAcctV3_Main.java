@@ -1,17 +1,19 @@
-import java.io.*;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-
-public class BankAcctV3_Main {
-
-	/**
-	 * DID EXTRA CREDIT #1 & #2
+//NAME: Mark Goldstein
+/**
+	 * 
 	 * @author Mark Goldstein
 	 * @version 0.02
 	 * @date 9/26/2018
 	 * this is a test of changes
 	 * 
 	 */
+import java.io.*;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class BankAcctV3_Main {
+
+	
 
 	/*
 	 * Method (): 
@@ -130,24 +132,6 @@ public class BankAcctV3_Main {
 			line = sc.nextLine();
 			StringTokenizer lineTok = new StringTokenizer(line);	
 
-
-			//			Depositor myDepositor = new Depositor( lineTok.nextToken(), 
-			//					lineTok.nextToken(),lineTok.nextToken() );
-
-			//			accNum = Integer.parseInt(lineTok.nextToken());
-			//			type = lineTok.nextToken();
-			//			bal = Double.parseDouble(lineTok.nextToken());
-
-			/*		EXTRA CREDIT NUMBER 2
-			 * Takes local variables that are read from tokenizer
-			 * and uses the BankAccount constructor to pass the
-			 * information, creating a object with filled attributes
-			 * in one line of code.
-			 */
-
-			//			account[count] = new BankAccount(first, last, social, accNum, type, bal);
-			//			count++;
-
 			//sets depositor,name and bank acc in one step sends name and makes nested name with used params
 			BankAccount bankAcc = new BankAccount(lineTok.nextToken(), 
 					lineTok.nextToken(),lineTok.nextToken(), Integer.parseInt(lineTok.nextToken()), 
@@ -201,7 +185,6 @@ public class BankAcctV3_Main {
 			outFile.printf("$%9.2f", myBankAcc.getAccBal());
 			outFile.println();
 
-
 		}
 		outFile.println("\\----------------------------------------------"
 				+ "----------------------------------/");
@@ -237,21 +220,16 @@ public class BankAcctV3_Main {
 
 	}
 
-	/*
-	 * Method findAcct(): Input:BankAccount[] array "bankAcc"
-	 * requestedAccount - requested account
-	 * 
-	 * Process: Performs a linear search on the bankAcc array for
-	 * the requested account. 
-	 * 
-	 * Output: If found, the index of the requested account is
-	 * returned Otherwise, returns -1.
-	 */
-
-	//	public static void findAcct( Scanner kybd, Bank bank) {
-	//		int request = kybd.nextInt();
-	//		bank.findAcct(request);
-	//	}
+//	/*
+//	 * Method findAcct(): Input:BankAccount[] array "bankAcc"
+//	 * requestedAccount - requested account
+//	 * 
+//	 * Process: Performs a linear search on the bankAcc array for
+//	 * the requested account. 
+//	 * 
+//	 * Output: If found, the index of the requested account is
+//	 * returned Otherwise, returns -1.
+//	 */
 
 	/*
 	 * Method accountInfo():
@@ -315,7 +293,7 @@ public class BankAcctV3_Main {
 
 			}
 			else if (temp ==  -2)
-			{//Error for invalid length
+			{ //Error for invalid length
 				outFile.println("Transaction Requested: Account Information");
 				outFile.print("Error: Social Security "
 						+ "numbers must be 9 integers long!\n");
@@ -382,8 +360,6 @@ public class BankAcctV3_Main {
 					outFile.println();
 				}
 			}
-
-
 		} 
 		else 
 		{ 

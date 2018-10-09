@@ -36,7 +36,7 @@ public class Bank {
 	 * Output: 
 	 */
 
-	//CHNAGE FROM BOOLEAN TO ERROR MESSAGES  
+
 
 	public void openNewAccount( int numAccts, int accountNum, double accBal, String first, 
 			String last, String socSec, String type) 
@@ -51,6 +51,12 @@ public class Bank {
 
 	}
 
+	/*
+	 * Method deleteAcct(): 
+	 * Input:  index of account to delete
+	 * Process: 
+	 * Output: 
+	 */
 	public void deleteAcct(int index) 
 
 	{
