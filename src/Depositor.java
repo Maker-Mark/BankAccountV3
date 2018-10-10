@@ -1,8 +1,6 @@
 /**
- * DID EXTRA CREDIT #1 and #2
  * @author Mark Goldstein
  */
-
 public class Depositor {
 	//data members of Depositor object
 	private Name nameOnAcc = new Name(); 

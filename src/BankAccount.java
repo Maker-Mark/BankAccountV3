@@ -1,12 +1,10 @@
-
 /**
- * DID EXTRA CREDIT #1 and #2
  * @author Mark Goldstein
  */
 
 public class BankAccount {
 	//data members of BankAccount object
-	private Depositor accDet = new Depositor();// name class
+	private Depositor accDet = new Depositor();
 	private int accNum;
 	private String accType;
 	private double accBal;
@@ -40,7 +38,6 @@ public class BankAccount {
 	{
 		accDet.setNameOnAcc(first, last);
 		accDet.setSocSec(social);
-
 	}
 	
 	//Setters and getters for rest of data members
@@ -53,7 +50,7 @@ public class BankAccount {
 	{
 		accType = type;
 	}
-//Add set
+
 	public void setAccBal(double bal) 
 	{
 		accBal = bal;
